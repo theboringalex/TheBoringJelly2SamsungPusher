@@ -1,6 +1,7 @@
 # TheBoringJelly2SamsungPusher
 
 [![Open your Home Assistant instance and show the add app repository dialog with this repository pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Ftheboringalex%2FTheBoringJelly2SamsungPusher)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/theboringalex)
 
 A Home Assistant add-on that installs the [Jellyfin](https://jellyfin.org) app on a Samsung Smart TV (Tizen)
 with a single click. Enter the IP address of your TV in the web UI and the add-on does the rest: it downloads a
@@ -42,6 +43,10 @@ The add-on supports **amd64** systems only (the Tizen CLI is not available for A
 
 All options, build variants, certificate handling and troubleshooting are described in the
 [add-on documentation](theboringjelly2samsungpusher/DOCS.md).
+
+## Support
+
+If this add-on saved you some time, you can [buy me a coffee](https://www.buymeacoffee.com/theboringalex).
 
 ## Credits
 
