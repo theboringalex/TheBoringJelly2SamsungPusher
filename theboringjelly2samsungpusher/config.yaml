@@ -1,0 +1,41 @@
+name: TheBoringJelly2SamsungPusher
+version: "0.2.0"
+slug: theboringjelly2samsungpusher
+description: Installiert die Jellyfin-App per Klick auf einen Samsung-Smart-TV (Tizen, Developer Mode)
+url: https://github.com/jellyfin/jellyfin-tizen
+# Das Tizen-CLI (sdb/tizen) gibt es nur für x86_64 Linux.
+arch:
+  - amd64
+# Basis-Image ist kein Home-Assistant-Base-Image (kein s6/tini nötig).
+init: false
+boot: manual
+startup: application
+# Bedienung über die Seitenleiste (Ingress), kein offener Port.
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:television-play
+panel_title: TheBoringJelly2SamsungPusher
+# Optionale eigene Samsung-Zertifikate (author.p12 / distributor.p12) liegen in
+# /addon_configs/<slug>/ auf dem HA-Host und erscheinen im Container unter /config.
+map:
+  - addon_config:rw
+options:
+  tv_ip: ""
+  build_variant: Jellyfin
+  jellyfin_url: ""
+  release_tag: ""
+  uninstall_first: false
+  launch_after_install: true
+  auto_install: false
+  certificate_password: ""
+  distributor_password: ""
+schema:
+  tv_ip: str?
+  build_variant: list(Jellyfin|Jellyfin-10.11.z|Jellyfin-12.z|Jellyfin-master|Jellyfin-prerelease|Jellyfin-secondary|Jellyfin-OblongIcon|Jellyfin-SmartHub|Jellyfin-OSA|Jellyfin-TrailerFix|Jellyfin-GrayFix|Jellyfin-10.11.z-OSA|Jellyfin-10.11.z-TrailerFix|Jellyfin-12.z-OSA|Jellyfin-12.z-TrailerFix)
+  jellyfin_url: str?
+  release_tag: str?
+  uninstall_first: bool
+  launch_after_install: bool
+  auto_install: bool
+  certificate_password: password?
+  distributor_password: password?

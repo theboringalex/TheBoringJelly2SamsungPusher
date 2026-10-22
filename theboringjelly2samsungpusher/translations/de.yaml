@@ -1,0 +1,28 @@
+configuration:
+  tv_ip:
+    name: TV IP-Adresse
+    description: IPv4-Adresse des Samsung-TV (Vorgabe für die Weboberfläche und für den Autostart).
+  build_variant:
+    name: Build-Variante
+    description: Welcher Jellyfin-Build installiert wird. "Jellyfin" ist die neueste stabile Web-Version. Sie muss zur Server-Version passen.
+  jellyfin_url:
+    name: Jellyfin-Server-URL (optional)
+    description: Beispiel http://192.168.1.10:8096. Ist sie gesetzt und steht die Variante auf "Jellyfin", wählt der Installer automatisch 10.11.z oder 12.z passend zum Server.
+  release_tag:
+    name: Release-Tag (optional)
+    description: Bestimmten Release von jeppevinkel/jellyfin-tizen-builds installieren, z. B. 2026-10-17-1707. Leer = neuester Release.
+  uninstall_first:
+    name: Vorher deinstallieren
+    description: Entfernt eine vorhandene Jellyfin-Installation (inkl. Anmeldung in der App) vor der Installation. Nötig, wenn sie mit einem anderen Zertifikat installiert wurde.
+  launch_after_install:
+    name: App nach Installation starten
+    description: Startet Jellyfin direkt nach erfolgreicher Installation auf dem TV.
+  auto_install:
+    name: Beim Start automatisch installieren
+    description: Führt die Installation mit diesen Einstellungen aus, sobald das Add-on gestartet wird.
+  certificate_password:
+    name: Zertifikats-Passwort (optional)
+    description: Nur nötig, wenn author.p12 und distributor.p12 im Add-on-Konfigurationsordner liegen (neuere Samsung-TVs).
+  distributor_password:
+    name: Passwort Distributor-Zertifikat (optional)
+    description: Nur falls es vom Passwort des Autor-Zertifikats abweicht. Leer = gleiches Passwort.
