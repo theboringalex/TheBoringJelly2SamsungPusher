@@ -48,6 +48,8 @@ Ablauf pro Installation:
 In der Seitenleiste **TheBoringJelly2SamsungPusher** öffnen, IP des TV eintragen, Variante wählen, **Installieren**.
 Der Ablauf erscheint live im Log. Derselbe Ablauf steht auch im Reiter **Protokoll** des Add-ons.
 
+![Weboberfläche von TheBoringJelly2SamsungPusher nach erfolgreicher Installation](https://raw.githubusercontent.com/theboringalex/TheBoringJelly2SamsungPusher/main/docs/screenshot.jpg)
+
 Alternativ lassen sich IP und Variante im Reiter **Konfiguration** vorgeben. Mit
 **Beim Start automatisch installieren** läuft die Installation direkt nach dem Start des Add-ons.
 
