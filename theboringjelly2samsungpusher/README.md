@@ -1,8 +1,8 @@
 # TheBoringJelly2SamsungPusher
 
-Installiert die Jellyfin-App per Klick aus Home Assistant auf einen Samsung-Smart-TV.
-IP-Adresse des TV eingeben, Variante wählen, „Installieren“ – den Rest (Download,
-Prüfsummenkontrolle, Verbindung per `sdb`, Signierung, Installation, App-Start) erledigt das Add-on.
+Installs the Jellyfin app on a Samsung Smart TV with one click from Home Assistant.
+Enter the IP address of the TV, choose a variant, click "Install" – the add-on handles the rest
+(download, checksum verification, connection via `sdb`, signing, installation, app launch).
 
-Nur für **amd64**-Systeme (das Tizen-CLI gibt es nicht für ARM).
-Details und Fehlersuche stehen im Reiter **Dokumentation**.
+**amd64** systems only (the Tizen CLI is not available for ARM).
+Details and troubleshooting are in the **Documentation** tab.

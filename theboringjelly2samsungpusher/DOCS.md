@@ -1,143 +1,141 @@
-# TheBoringJelly2SamsungPusher – Dokumentation
+# TheBoringJelly2SamsungPusher – Documentation
 
-## Was das Add-on macht
+## What the add-on does
 
-Das Add-on bringt das Samsung-Tizen-CLI (`sdb`, `tizen`) mit und installiert einen fertigen
-Build von [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) auf deinen TV.
-Die Builds stammen aus [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds),
-das den offiziellen Code per GitHub Actions automatisch baut. Ein Selbstbau von `jellyfin-web`
-im Add-on ist bewusst nicht enthalten (mehrere GB RAM, sehr lange Laufzeit, kein Vorteil).
+The add-on ships the Samsung Tizen CLI (`sdb`, `tizen`) and installs a prebuilt build of
+[jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) on your TV. The builds come from
+[jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds), which builds the official
+code automatically with GitHub Actions. Building `jellyfin-web` inside the add-on is deliberately not included
+(several GB of RAM, very long runtime, no benefit).
 
-Ablauf pro Installation:
+Steps of each installation:
 
-1. Passenden Release über die GitHub-API auflösen und die `.wgt`-Datei laden
-2. SHA-256-Prüfsumme gegen den von GitHub gemeldeten Wert prüfen
-3. Per `sdb connect` mit dem TV verbinden (TCP 26101)
-4. Optional mit eigenem Samsung-Zertifikat neu signieren
-5. Optional die bestehende Installation entfernen
-6. `tizen install` ausführen, danach optional die App starten
+1. Resolve the matching release through the GitHub API and download the `.wgt` file
+2. Verify the SHA-256 checksum against the value reported by GitHub
+3. Connect to the TV with `sdb connect` (TCP 26101)
+4. Optionally re-sign the package with your own Samsung certificate
+5. Optionally remove the existing installation
+6. Run `tizen install`, then optionally launch the app
 
-## Einmalige Vorbereitung am TV
+## One-time preparation on the TV
 
-1. TV einschalten, **Apps** öffnen.
-2. Auf der Fernbedienung **12345** eingeben (bei Modellen ohne Zifferntasten über die „123“-Taste).
-3. **Developer mode** auf **On** stellen.
-4. Als **Host PC IP** die IP-Adresse deines **Home-Assistant-Hosts** eintragen
-   (bei einer HA-VM die IP der VM, nicht die des Docker-Containers).
-5. TV **neu starten** (Netzstecker ziehen oder über das Menü). Erst danach gilt die Einstellung.
+1. Turn on the TV and open **Apps**.
+2. Enter **12345** on the remote (on remotes without number keys, use the "123" button).
+3. Switch **Developer mode** to **On**.
+4. Enter the IP address of your **Home Assistant host** as **Host PC IP**
+   (for an HA VM, use the IP of the VM, not of the Docker container).
+5. **Restart** the TV (pull the power plug or use the menu). The setting only takes effect afterwards.
 
-## Add-on einrichten
+## Setting up the add-on
 
-**Variante A: über das Repository (empfohlen)**
+**Option A: via the repository (recommended)**
 
-1. **Einstellungen → Add-ons → Add-on-Store → ⋮ → Repositories** und
-   `https://github.com/theboringalex/TheBoringJelly2SamsungPusher` hinzufügen.
-2. „TheBoringJelly2SamsungPusher“ im Store öffnen und **Installieren**. Der erste Build lädt das
-   Tizen-CLI-Image (mehrere hundert MB) und dauert einige Minuten.
-3. **Starten**, dann in der Seitenleiste **TheBoringJelly2SamsungPusher** öffnen.
+1. **Settings → Add-ons → Add-on Store → ⋮ → Repositories** and add
+   `https://github.com/theboringalex/TheBoringJelly2SamsungPusher`.
+2. Open "TheBoringJelly2SamsungPusher" in the store and click **Install**. The first build downloads the
+   Tizen CLI image (several hundred MB) and takes a few minutes.
+3. Click **Start**, then open **TheBoringJelly2SamsungPusher** in the sidebar.
 
-**Variante B: als lokales Add-on**
+**Option B: as a local add-on**
 
-1. Den Ordner `theboringjelly2samsungpusher` in das Verzeichnis `/addons/` deines HA-Hosts kopieren
-   (Samba-Freigabe „addons“ oder SSH-Add-on).
-2. **Einstellungen → Add-ons → Add-on-Store → ⋮ → Nach Updates suchen** (oder Seite neu laden).
-3. Unter **Lokale Add-ons** „TheBoringJelly2SamsungPusher“ öffnen und **Installieren**, dann **Starten**.
+1. Copy the folder `theboringjelly2samsungpusher` into the `/addons/` directory of your HA host
+   (Samba share "addons" or the SSH add-on).
+2. **Settings → Add-ons → Add-on Store → ⋮ → Check for updates** (or reload the page).
+3. Open "TheBoringJelly2SamsungPusher" under **Local add-ons**, click **Install**, then **Start**.
 
-## Bedienung
+## Usage
 
-In der Seitenleiste **TheBoringJelly2SamsungPusher** öffnen, IP des TV eintragen, Variante wählen, **Installieren**.
-Der Ablauf erscheint live im Log. Derselbe Ablauf steht auch im Reiter **Protokoll** des Add-ons.
+Open **TheBoringJelly2SamsungPusher** in the sidebar, enter the IP of the TV, choose a variant and click **Install**.
+The progress is shown live in the log. The same output is available in the add-on's **Log** tab.
 
-![Weboberfläche von TheBoringJelly2SamsungPusher nach erfolgreicher Installation](https://raw.githubusercontent.com/theboringalex/TheBoringJelly2SamsungPusher/main/docs/screenshot.jpg)
+![Web UI of TheBoringJelly2SamsungPusher after a successful installation](https://raw.githubusercontent.com/theboringalex/TheBoringJelly2SamsungPusher/main/docs/screenshot.jpg)
 
-Alternativ lassen sich IP und Variante im Reiter **Konfiguration** vorgeben. Mit
-**Beim Start automatisch installieren** läuft die Installation direkt nach dem Start des Add-ons.
+Alternatively, IP and variant can be preset in the **Configuration** tab. With
+**Install on add-on start** the installation runs right after the add-on starts.
 
-## Konfiguration
+## Configuration
 
-| Option | Bedeutung |
+| Option | Meaning |
 |---|---|
-| `tv_ip` | IPv4-Adresse des TV, Vorgabe für die Oberfläche und den Autostart |
-| `build_variant` | Welcher Build installiert wird (siehe unten) |
-| `jellyfin_url` | Optional, z. B. `http://192.168.1.10:8096`. Der Installer liest die Server-Version über den öffentlichen Endpunkt `/System/Info/Public` und wählt bei Variante `Jellyfin` automatisch `Jellyfin-10.11.z` oder `Jellyfin-12.z` |
-| `release_tag` | Optional, bestimmten Release festlegen (z. B. `2026-10-17-1707`), leer = neuester |
-| `uninstall_first` | Bestehende Jellyfin-App vorher vom TV entfernen (die Anmeldung in der App geht verloren) |
-| `launch_after_install` | App nach der Installation starten |
-| `auto_install` | Beim Start des Add-ons automatisch installieren |
-| `certificate_password` | Passwort für eigene Samsung-Zertifikate (siehe unten) |
-| `distributor_password` | Nur falls es vom Autor-Passwort abweicht |
+| `tv_ip` | IPv4 address of the TV, default for the UI and for auto install |
+| `build_variant` | Which build is installed (see below) |
+| `jellyfin_url` | Optional, e.g. `http://192.168.1.10:8096`. The installer reads the server version from the public endpoint `/System/Info/Public` and, for the variant `Jellyfin`, automatically picks `Jellyfin-10.11.z` or `Jellyfin-12.z` |
+| `release_tag` | Optional, pin a specific release (e.g. `2026-10-17-1707`), empty = latest |
+| `uninstall_first` | Remove an existing Jellyfin app from the TV first (the login inside the app is lost) |
+| `launch_after_install` | Launch the app after installation |
+| `auto_install` | Install automatically when the add-on starts |
+| `certificate_password` | Password for custom Samsung certificates (see below) |
+| `distributor_password` | Only if it differs from the author password |
 
-### Build-Varianten
+### Build variants
 
-Die Web-Version im Build sollte zur Version deines Jellyfin-Servers passen.
+The web version inside the build should match the version of your Jellyfin server.
 
-| Variante | Bedeutung |
+| Variant | Meaning |
 |---|---|
-| `Jellyfin` | neueste stabile jellyfin-web-Version |
-| `Jellyfin-10.11.z` / `Jellyfin-12.z` | aktueller Stand des jeweiligen Release-Branches, passend zu Server 10.11.x bzw. 12.x |
-| `Jellyfin-master` / `Jellyfin-prerelease` | Entwicklungsstand bzw. Vorabversion |
-| `Jellyfin-secondary` | wie stabil, aber mit eigener App-ID (zweites Konto parallel möglich) |
-| `Jellyfin-OblongIcon` | Querformat-Icon für TVs, die es verlangen |
-| `Jellyfin-SmartHub` | Samsung-Smart-Hub-Preview-Integration |
-| `Jellyfin-OSA` | OblongIcon + SmartHub + experimenteller AVPlay-Player (bessere Codec-Unterstützung) |
-| `Jellyfin-TrailerFix` | behebt YouTube-Trailer-Fehler 153 auf neuen Tizen-Versionen |
-| `Jellyfin-GrayFix` | könnte graue Balken über/unter dem Video beheben |
+| `Jellyfin` | latest stable jellyfin-web version |
+| `Jellyfin-10.11.z` / `Jellyfin-12.z` | current state of the respective release branch, for server 10.11.x or 12.x |
+| `Jellyfin-master` / `Jellyfin-prerelease` | development state or pre-release |
+| `Jellyfin-secondary` | like stable, but with its own app ID (allows a second account in parallel) |
+| `Jellyfin-OblongIcon` | landscape icon for TVs that require it |
+| `Jellyfin-SmartHub` | Samsung Smart Hub preview integration |
+| `Jellyfin-OSA` | OblongIcon + SmartHub + experimental AVPlay player (better codec support) |
+| `Jellyfin-TrailerFix` | fixes YouTube trailer error 153 on newer Tizen versions |
+| `Jellyfin-GrayFix` | may fix gray bars above/below the video |
 
-Weitere Kombinationen (z. B. `10.11.z-OSA`) stehen im Auswahlmenü. Fehlt ein Build im gewählten Release,
-listet das Log alle verfügbaren Namen auf.
+More combinations (e.g. `10.11.z-OSA`) are available in the dropdown. If a build is missing in the selected
+release, the log lists all available names.
 
-## Neuere Samsung-TVs: eigenes Zertifikat
+## Newer Samsung TVs: custom certificate
 
-Ältere TVs akzeptieren das Standardprofil des Tizen-CLI. Neuere Modelle verlangen ein
-Samsung-Zertifikat, das die DUID des TV enthält. Typisches Fehlerbild:
-`install failed[118, -12], reason: Check certificate error`.
+Older TVs accept the default profile of the Tizen CLI. Newer models require a Samsung certificate that contains
+the DUID of the TV. Typical error: `install failed[118, -12], reason: Check certificate error`.
 
-1. Auf einem Rechner mit Tizen Studio (Certificate Manager + Samsung Certificate Extension) ein
-   **Samsung-Zertifikat** für deinen TV erstellen (Samsung-Konto nötig; das Add-on legt keine Konten an
-   und fragt keine Zugangsdaten ab).
-2. `author.p12` und `distributor.p12` in den Konfigurationsordner des Add-ons legen:
-   `/addon_configs/<Add-on-Slug-Präfix>_theboringjelly2samsungpusher/` auf dem HA-Host
-   (im Container erscheint er als `/config`; den genauen Pfad zeigt dir der Samba-Share „addon_configs“).
-3. Das Zertifikats-Passwort im Reiter Konfiguration eintragen (`certificate_password`).
-4. Add-on neu starten und die Installation wiederholen.
+1. On a computer with Tizen Studio (Certificate Manager + Samsung Certificate Extension), create a
+   **Samsung certificate** for your TV (a Samsung account is required; the add-on does not create accounts and
+   does not ask for credentials).
+2. Put `author.p12` and `distributor.p12` into the add-on's configuration folder:
+   `/addon_configs/<add-on-slug-prefix>_theboringjelly2samsungpusher/` on the HA host
+   (it appears as `/config` inside the container; the Samba share "addon_configs" shows the exact path).
+3. Enter the certificate password in the Configuration tab (`certificate_password`).
+4. Restart the add-on and repeat the installation.
 
-Wichtig: Die App lässt sich später nur mit **demselben** Autor-Zertifikat aktualisieren. Wechselst du das
-Zertifikat, hilft `uninstall_first`.
+Important: the app can later only be updated with the **same** author certificate. If you change the certificate,
+use `uninstall_first`.
 
-## Fehlersuche
+## Troubleshooting
 
-| Meldung / Symptom | Ursache und Lösung |
+| Message / symptom | Cause and solution |
 |---|---|
-| „Keine Verbindung zum TV“ | Developer Mode aus, TV nicht neu gestartet, falsche Host-PC-IP im Developer-Dialog, oder Firewall/VLAN blockt TCP 26101 vom HA-Host zum TV |
-| Status `unauthorized` oder `offline` | Developer Mode am TV aus- und wieder einschalten, Host-PC-IP prüfen, TV neu starten |
-| `install failed[118, -11]`, „Author certificate not match“ | Jellyfin ist mit anderem Zertifikat installiert. Am TV im Apps-Menü entfernen (Entfernen aus der App-Leiste genügt nicht) oder `uninstall_first` aktivieren |
-| `install failed[118, -12]`, „Invalid certificate chain“ | TV verlangt ein Samsung-Zertifikat mit DUID, siehe oben |
-| „SHA-256-Prüfsumme stimmt nicht“ | Download beschädigt, Installation erneut starten |
-| Build-Variante nicht in Release | Log zeigt die verfügbaren Namen; Variante oder `release_tag` anpassen |
-| Add-on lässt sich nicht installieren / nicht gebaut | Nur amd64 wird unterstützt. Auf ARM-Hosts (z. B. Raspberry Pi) funktioniert das Tizen-CLI nicht |
+| "Keine Verbindung zum TV" (no connection to the TV) | Developer mode is off, the TV was not restarted, wrong Host PC IP in the developer dialog, or a firewall/VLAN blocks TCP 26101 from the HA host to the TV |
+| Status `unauthorized` or `offline` | Switch Developer mode off and on again, check the Host PC IP, restart the TV |
+| `install failed[118, -11]`, "Author certificate not match" | Jellyfin is installed with a different certificate. Remove it in the TV's Apps menu (removing it from the app bar is not enough) or enable `uninstall_first` |
+| `install failed[118, -12]`, "Invalid certificate chain" | The TV requires a Samsung certificate with DUID, see above |
+| "SHA-256-Prüfsumme stimmt nicht" (checksum mismatch) | Download corrupted, start the installation again |
+| Build variant not in release | The log shows the available names; adjust the variant or `release_tag` |
+| Add-on cannot be installed / not built | Only amd64 is supported. The Tizen CLI does not work on ARM hosts (e.g. Raspberry Pi) |
 
-Wenn die Verbindung trotz korrekter Einstellungen scheitert, hilft es, im TV-Developer-Dialog die
-Host-PC-IP zu kontrollieren: Das Add-on greift aus dem Docker-Netz heraus zu, der TV sieht dabei die
-IP des HA-Hosts.
+If the connection fails despite correct settings, double-check the Host PC IP in the TV's developer dialog:
+the add-on connects from inside the Docker network, and the TV sees the IP of the HA host.
 
-## Sicherheit und Datenschutz
+## Security and privacy
 
-- Die Weboberfläche ist nur über Home-Assistant-Ingress erreichbar; der Server nimmt ausschließlich
-  Verbindungen des Supervisors (172.30.32.2) an. Es wird kein Port nach außen veröffentlicht.
-- Eingaben (IP, Variante, Tag, URL) werden streng validiert und per Umgebungsvariablen übergeben,
-  nie in Shell-Befehle eingesetzt.
-- Zertifikats-Passwörter stehen nur in den Add-on-Optionen. Sie werden aus dem Log maskiert, und die
-  temporär geänderte Tizen-Profildatei wird nach jedem Lauf wiederhergestellt.
-- Die installierten Builds stammen von einem Drittanbieter-Repository (nicht von Jellyfin direkt).
-  Das Add-on prüft die von GitHub gemeldete SHA-256-Prüfsumme. Das schützt vor beschädigten
-  Downloads, nicht vor einem kompromittierten Release. Wer das ausschließen will, baut
-  [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) selbst und installiert die eigene `.wgt`.
-- Der Developer Mode am TV öffnet einen Debug-Zugang. Nach der Installation kann er wieder
-  ausgeschaltet werden; die App bleibt installiert.
+- The web UI is only reachable through Home Assistant Ingress; the server only accepts connections from the
+  Supervisor (172.30.32.2). No port is published.
+- Inputs (IP, variant, tag, URL) are strictly validated and passed through environment variables,
+  never inserted into shell commands.
+- Certificate passwords are only stored in the add-on options. They are masked in the log, and the
+  temporarily modified Tizen profile file is restored after every run.
+- The installed builds come from a third-party repository (not directly from Jellyfin).
+  The add-on verifies the SHA-256 checksum reported by GitHub. This protects against corrupted downloads,
+  not against a compromised release. If you want to rule that out, build
+  [jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) yourself and install your own `.wgt`.
+- Developer mode on the TV opens a debug interface. You can switch it off again after the installation;
+  the app stays installed.
 
 ## Credits
 
 - [jellyfin/jellyfin-tizen](https://github.com/jellyfin/jellyfin-tizen) (MPL-2.0)
-- [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) für die fertigen Builds
-- [Georift/install-jellyfin-tizen](https://github.com/Georift/install-jellyfin-tizen) als Vorlage für den Docker-basierten Ablauf
-- [vitalets/docker-tizen-webos-sdk](https://github.com/vitalets/docker-tizen-webos-sdk) als Basis-Image mit Tizen-CLI
+- [jeppevinkel/jellyfin-tizen-builds](https://github.com/jeppevinkel/jellyfin-tizen-builds) for the prebuilt packages
+- [Georift/install-jellyfin-tizen](https://github.com/Georift/install-jellyfin-tizen) as a template for the Docker-based flow
+- [vitalets/docker-tizen-webos-sdk](https://github.com/vitalets/docker-tizen-webos-sdk) as the base image with the Tizen CLI
