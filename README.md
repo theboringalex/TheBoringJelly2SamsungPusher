@@ -7,7 +7,7 @@ A Home Assistant add-on that installs the [Jellyfin](https://jellyfin.org) app o
 with a single click. Enter the IP address of your TV in the web UI and the add-on does the rest: it downloads a
 prebuilt Jellyfin build, verifies its checksum, connects to the TV, installs the app and launches it.
 
-![Web UI of TheBoringJelly2SamsungPusher after a successful installation](docs/screenshot.jpg)
+![Web UI of TheBoringJelly2SamsungPusher after a successful installation](sreenshot.jpg)
 
 ## Features
 
